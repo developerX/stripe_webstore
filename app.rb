@@ -5,6 +5,11 @@ get '/' do
 end
 
 get '/success' do
-  p params
   "Your payment has processed  #{params[:cardNumber] ? "with #{params[:cardNumber]}" : ""} successfully"
+end
+
+post '/pay' do 
+  p "The data is sent here #{params}"
+  p params
+  redirect "/success"
 end
