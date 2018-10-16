@@ -1,0 +1,18 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="./styles.css" />
+  <title>Welcome to my store</title>
+</head>
+<body>
+  <h1>Welcome, to my web store</h1>
+ <h4><%= @crazyTest %></h4>
+ <ul>
+  <% @products.each do |product| %>
+    <li>
+      <label><%= product["description"] %></label>
+      <p><%= product["price"] %></p>
+    </li>
+  <% end %>
+ </ul>
+</body>
+</html>
