@@ -10,7 +10,7 @@ get '/' do
 
   # query the products table and print the result
   puts "Database query results:"
-  @products = db.execute("SELECT description, price FROM products;")
+  @products = db.execute("SELECT id, description, price FROM products;")  
   p @products
   # close database connection
   db.close
@@ -27,3 +27,4 @@ post '/pay' do
   p params
   redirect "/success"
 end
+
