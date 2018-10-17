@@ -33,13 +33,13 @@
       <input id="card-number" type="text" placeholder="card number">
     </p>
     <p>
-      <input id="card-expiration-month" type="text" placeholder="card number">
+      <input id="card-expiration-month" type="text" placeholder="card expiration month">
     </p>
     <p>
-      <input id="card-expiration-year" type="text" placeholder="card number">
+      <input id="card-expiration-year" type="text" placeholder="card expiration year">
     </p>
     <p>
-      <input id="card-cvc" type="text" placeholder="card number">
+      <input id="card-cvc" type="text" placeholder="card cvc">
     </p>
     <button type="submit" id="submitButton">
       Pay Now
@@ -58,7 +58,20 @@
 
       console.log("Form submission is paused!");
 
-      // TODO: call the createToken function
+      var tokenResponseHandler = function(status, response) {
+        console.log("Response from Stripe token call:");
+        console.log(response);
+        // TODO: check for any input validation errors
+        // TODO: if there are errors, display them at the top of the form
+        // TODO: if there are not errors, add the token info to the form as a hidden field
+        // TODO: submit the form
+      };
+      Stripe.card.createToken({
+        number: $('#card-number').val(),
+        cvc: $('#card-cvc').val(),
+        exp_month: $('#card-expiration-month').val(),
+        exp_year: $('#card-expiration-year').val(),
+      }, tokenResponseHandler);
     });
     console.log("This script is working!");
   });
