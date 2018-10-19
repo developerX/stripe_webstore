@@ -30,7 +30,7 @@
     </p>
     <% end %>
     <p>
-      <input id="card-number" type="text" placeholder="card number">
+      <input id="card-number" type="text" placeholder="card number" maxlength="16">
     </p>
     <p>
       <input id="card-expiration-month" type="text" placeholder="card expiration month">
@@ -67,11 +67,15 @@
             // Re-enable submission
             $("#submitButton").attr('disabled','false');
         } else {
-            // TODO: add the token info to the form as a hidden field
-            // TODO: submit the form
+            // find the form
+          var $form = $('#payment-form');
+          // add a hidden field to the form
+          var token = response.id;
+          $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+
+            // submit the form
+          $form.unbind().submit();
         }
-        // TODO: if there are not errors, add the token info to the form as a hidden field
-        // TODO: submit the form
       };
 
       Stripe.card.createToken({

@@ -1,5 +1,9 @@
+require_relative 'secrets'
 require 'sinatra'
 require 'sqlite3'
+require 'stripe'
+Stripe.api_key = $STRIPE_SECRET_TEST_KEY
+
 
 get '/' do
   # connect to the database
@@ -25,6 +29,9 @@ end
 post '/pay' do 
   p "The data is sent here #{params}"
   p params
+  db = SQLite3::Database.open('store.db');
+  @amount = db.execute("SELECT price FROM products WHERE id=#{params[:selectedProduct]}");
+  p @amount;
   redirect "/success"
 end
 
