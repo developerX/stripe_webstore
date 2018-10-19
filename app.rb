@@ -18,7 +18,6 @@ get '/' do
   p @products
   # close database connection
   db.close
-  @crazyTest = "This is a crazy test"
   erb :home
 end
 
@@ -32,6 +31,12 @@ post '/pay' do
   db = SQLite3::Database.open('store.db');
   @amount = db.execute("SELECT price FROM products WHERE id=#{params[:selectedProduct]}");
   p @amount;
+  Stripe::Charge.create(
+    :amount => @amount[0][0],
+    :currency => "usd",
+    :source => params[:stripeToken], # obtained with Stripe.js
+    :description => params[:stripeToken]
+  )
   redirect "/success"
 end
 
